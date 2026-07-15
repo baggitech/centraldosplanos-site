@@ -12,10 +12,10 @@
               <div class="p-3 w-100">
                 <!-- Header -->
                 <div class="mb-3 text-center">
-                  <a class="link-fx fw-bold fs-1" href="index.html">
+                  <a class="link-fx fw-bold fs-1" href="{{ route('login') }}">
                     <span class="text-dark">Dash</span><span class="text-primary">mix</span>
                   </a>
-                  <p class="text-uppercase fw-bold fs-sm text-muted">Sign In</p>
+                  <p class="text-uppercase fw-bold fs-sm text-muted">Login</p>
                 </div>
                 <!-- END Header -->
 
@@ -25,20 +25,26 @@
                 <div class="row g-0 justify-content-center">
                   <div class="col-sm-8 col-xl-6">
 
+                  @session('status')
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ $value }}
+                  </div>
+                  @endsession
+
                     <form class="js-validation-signin" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="py-3">
                             <div class="mb-4">
-                                <input type="text" class="form-control form-control-lg form-control-alt @error('login-username') is-invalid @enderror" id="login-username" name="login-username" placeholder="Username" value="{{ old('login-username') }}">
-                                @error('login-username')
+                                <input type="email" class="form-control form-control-lg form-control-alt @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <input type="password" class="form-control form-control-lg form-control-alt @error('login-password') is-invalid @enderror" id="login-password" name="login-password" placeholder="Password">
-                                @error('login-password')
+                                <input type="password" class="form-control form-control-lg form-control-alt @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                                @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -47,14 +53,14 @@
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="btn w-100 btn-lg btn-hero btn-primary">
-                                <i class="fa fa-fw fa-sign-in-alt opacity-50 me-1"></i> Sign In
+                                <i class="fa fa-fw fa-sign-in-alt opacity-50 me-1"></i> Entrar
                             </button>
                             <p class="mt-3 mb-0 d-lg-flex justify-content-lg-between">
-                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="op_auth_reminder.html">
-                                    <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Forgot password
+                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="{{ route('password.request') }}">
+                                    <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Esqueceu sua senha 
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="op_auth_signup.html">
-                                    <i class="fa fa-plus opacity-50 me-1"></i> New Account
+                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="{{ route('register') }}">
+                                    <i class="fa fa-plus opacity-50 me-1"></i> Nova conta
                                 </a>
                             </p>
                         </div>

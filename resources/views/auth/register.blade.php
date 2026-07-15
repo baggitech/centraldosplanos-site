@@ -12,7 +12,7 @@
               <div class="p-3 w-100">
                 <!-- Header -->
                 <div class="mb-3 text-center">
-                  <a class="link-fx fw-bold fs-1" href="index.html">
+                  <a class="link-fx fw-bold fs-1" href="{{ route('login') }}">
                     <span class="text-dark">Dash</span><span class="text-primary">mix</span>
                   </a>
                   <p class="text-uppercase fw-bold fs-sm text-muted">Sign Up</p>
@@ -58,20 +58,20 @@
                             <div class="mb-4">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="signup-terms" name="signup-terms">
-                                    <label class="form-check-label" for="signup-terms">I agree to Terms &amp; Conditions</label>
+                                    <label class="form-check-label" for="signup-terms">Concordo com os Termos e Condições.</label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="btn w-100 btn-lg btn-hero btn-primary">
-                                <i class="fa fa-fw fa-plus opacity-50 me-1"></i> Sign Up
+                                <i class="fa fa-fw fa-plus opacity-50 me-1"></i> Cadastrar
                             </button>
                             <p class="mt-3 mb-0 d-lg-flex justify-content-lg-between">
-                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="op_auth_signin.html">
-                                    <i class="fa fa-sign-in-alt opacity-50 me-1"></i> Sign In
+                                <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="{{ route('login') }}">
+                                    <i class="fa fa-sign-in-alt opacity-50 me-1"></i> Login
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="#" data-bs-toggle="modal" data-bs-target="#modal-terms">
-                                    <i class="fa fa-book opacity-50 me-1"></i> Read Terms
+                                    <i class="fa fa-book opacity-50 me-1"></i> Leia os Termos
                                 </a>
                             </p>
                         </div>

@@ -146,3 +146,15 @@
 
 // User styles (your own styles/overrides)
 @import 'custom/main';
+
+input,
+select,
+textarea,
+button,
+.btn,
+.form-control,
+.form-select,
+.form-check-input,
+.input-group-text {
+    border-radius: 5px !important;
+}
