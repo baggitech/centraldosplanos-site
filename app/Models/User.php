@@ -54,6 +54,13 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
+    /**
+     * Get the interests associated with the user.
+     */
+    public function interests()
+    {
+        return $this->hasMany(UserInterest::class);
+    }
 
 
 

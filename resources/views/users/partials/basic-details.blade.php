@@ -1,7 +1,7 @@
     <!-- Info -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Dados Básicos do Usuário</h3>
+            <h3 class="block-title">Dados Básicos</h3>
             <x-block-options pin refresh collapse close />
         </div>
         <div class="block-content">
@@ -58,11 +58,6 @@
                     <!-- END Form Grid with Labels -->
                 </div>
             </div>
-
-
-
-
         </div>
-
     </div>
     <!-- END Info -->
