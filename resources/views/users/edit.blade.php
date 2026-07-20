@@ -38,6 +38,8 @@
 
     @include('users.partials.profile')
 
+    @include('users.partials.roles')
+
     @include('users.partials.interests')
     
 

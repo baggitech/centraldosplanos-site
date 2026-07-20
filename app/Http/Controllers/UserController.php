@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
+
 
 class UserController extends Controller
 {
@@ -63,8 +66,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        Gate::authorize('edit', $user);
         $user->load('profile', 'interests');
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -73,6 +78,7 @@ class UserController extends Controller
     public function update(User $user, Request $request)
     {
         //
+        Gate::authorize('edit', $user);
         $input = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
@@ -93,6 +99,7 @@ class UserController extends Controller
     public function updateProfile(User $user, Request $request)
     {
         //
+        Gate::authorize('edit', $user);
         $input = $request->validate([
             'type' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -105,9 +112,22 @@ class UserController extends Controller
 
     }
 
+    public function updateRoles(User $user, Request $request)
+    {
+        Gate::authorize('edit', $user);
+        $input = $request->validate([
+            'roles' => 'required|array',
+        ]);
+
+        $user->roles()->sync($input['roles'] ?? []);
+
+        return redirect()->route('users.index')->with('status', 'Funções do usuário editadas com sucesso.');
+    }
+
     public function updateInterests(User $user, Request $request)
     {
         //
+        Gate::authorize('edit', $user);
         $input = $request->validate([
             'interests' => 'nullable|array',
         ]);
@@ -129,6 +149,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        Gate::authorize('destroy', $user);
         $user->delete();
 
         return back()->with('status', 'Usuário deletado com sucesso.');

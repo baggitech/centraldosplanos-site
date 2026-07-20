@@ -21,9 +21,8 @@
                                 <label class="form-label">Tipo de usuário</label>
                                 <select name="type" class="form-select form-select-alt @error('type') is-invalid @enderror">
                                     <option value="">Selecione o tipo de usuário</option>
-                                    <option value="admin" {{ old('type', $user?->profile?->type) == 'admin' ? 'selected' : '' }}>Administrador</option>
-                                    <option value="manager" {{ old('type', $user?->profile?->type) == 'manager' ? 'selected' : '' }}>Gerente</option>
-                                    <option value="user" {{ old('type', $user?->profile?->type) == 'user' ? 'selected' : '' }}>Usuário</option>
+                                    <option value="admin" {{ old('type', $user?->profile?->type) == 'admin' ? 'selected' : '' }}>PF</option>
+                                    <option value="manager" {{ old('type', $user?->profile?->type) == 'manager' ? 'selected' : '' }}>PJ</option>
                                 </select>
                                 @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>

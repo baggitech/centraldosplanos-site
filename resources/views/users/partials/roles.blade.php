@@ -1,7 +1,7 @@
     <!-- Info -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Interesses</h3>
+            <h3 class="block-title">Cargos</h3>
             <x-block-options pin refresh collapse close />
         </div>
         <div class="block-content">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-lg-8">
                     <!-- Form Grid with Labels -->
-                    <form action="{{ route('users.updateInterests', $user->id) }}" method="POST">
+                    <form action="{{ route('users.updateRoles', $user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row mb-4">
@@ -21,12 +21,12 @@
                                 <label class="form-label">Checkboxes</label>
                                 <div class="space-y-2">
                                     <div class="form-check">
-                                    @foreach (['Futebol', 'Fórmula 1'] as $interest)
+                                    @foreach ($roles as $role)
                                     <div class="form-check">
-                                        <input class="form-check-input @error('interests') is-invalid @enderror" type="checkbox" value="{{ $interest }}" id="interest-{{ $interest }}" name="interests[][name]" @checked(in_array($interest, $user?->interests->pluck('name')->toArray() ?? []))>
-                                        <label class="form-check-label" for="interest-{{ $interest }}">{{ $interest }}</label>
+                                        <input class="form-check-input @error('roles') is-invalid @enderror" type="checkbox" value="{{ $role->id }}" id="role-{{ $role->id }}" name="roles[]" @checked(in_array($role->name, $user?->roles->pluck('name')->toArray() ?? []))>
+                                        <label class="form-check-label" for="role-{{ $role->id }}">{{ $role->name }}</label>
                                         @if($loop->last)
-                                            @error('interests')
+                                            @error('roles')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         @endif
@@ -34,8 +34,6 @@
                                     @endforeach
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
                         </div>
                         <div class="row mb-4">
                             <div class="col-12">

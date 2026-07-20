@@ -103,14 +103,27 @@
                             {{ $user->created_at->diffForHumans() }}
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <div class="btn-group">
 
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                            </form>
+                                @can('edit', $user)
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>                                    
+                                @endcan
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
 
+                                @can('destroy', $user)
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-trash"></i>
+                                        </button>                                
+                                    </form>
+                                @endcan
+                            </div>
                         </td>
                     </tr>
                     @endforeach
