@@ -104,16 +104,11 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
-
                                 @can('edit', $user)
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
                                         <i class="fa fa-pencil-alt"></i>
                                     </a>                                    
                                 @endcan
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </a>
-
                                 @can('destroy', $user)
                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                         @csrf
