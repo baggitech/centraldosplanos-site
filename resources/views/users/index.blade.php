@@ -65,17 +65,26 @@
 
 
     @session('status')
-        <div class="alert alert-success">
-            {{ $value }}
-        </div>
-    @endsession 
+    <div class="alert alert-success">
+        {{ $value }}
+    </div>
+    @endsession
 
 
     <!-- Dynamic Table Full -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">Dynamic Table <small>Full</small></h3>
-            <x-block-options pin refresh collapse close />
+            <div class="block-options">
+                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                    <i class="si si-refresh"></i>
+                </button>
+                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
+                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">
+                    <i class="si si-close"></i>
+                </button>
+            </div>
         </div>
         <div class="block-content block-content-full">
             <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
@@ -105,18 +114,18 @@
                         <td class="text-center">
                             <div class="btn-group">
                                 @can('edit', $user)
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </a>                                    
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
                                 @endcan
                                 @can('destroy', $user)
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </button>                                
-                                    </form>
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
                                 @endcan
                             </div>
                         </td>
