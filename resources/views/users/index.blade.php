@@ -113,12 +113,12 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
-                                @can('edit', $user)
+                                @can('edit', $user)@endcan
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Edit">
                                     <i class="fa fa-pencil-alt"></i>
                                 </a>
-                                @endcan
-                                @can('destroy', $user)
+                                
+                                @can('destroy', $user)@endcan
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -126,7 +126,7 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
-                                @endcan
+                                
                             </div>
                         </td>
                     </tr>

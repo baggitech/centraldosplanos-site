@@ -66,7 +66,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        Gate::authorize('edit', $user);
+        //Gate::authorize('edit', $user);
         $user->load('profile', 'interests');
         $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
