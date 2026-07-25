@@ -6,19 +6,17 @@
         <div class="col-6">
             <label class="form-label">Checkboxes</label>
             <div class="space-y-2">
+                @foreach (['Futebol', 'Fórmula 1'] as $interest)
                 <div class="form-check">
-                    @foreach (['Futebol', 'Fórmula 1'] as $interest)
-                    <div class="form-check">
-                        <input class="form-check-input @error('interests') is-invalid @enderror" type="checkbox" value="{{ $interest }}" id="interest-{{ $interest }}" name="interests[][name]" @checked(in_array($interest, $user?->interests->pluck('name')->toArray() ?? []))>
-                        <label class="form-check-label" for="interest-{{ $interest }}">{{ $interest }}</label>
-                        @if($loop->last)
-                        @error('interests')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        @endif
-                    </div>
-                    @endforeach
+                    <input class="form-check-input @error('interests') is-invalid @enderror" type="checkbox" value="{{ $interest }}" id="interest-{{ $interest }}" name="interests[][name]" @checked(in_array($interest, $user?->interests->pluck('name')->toArray() ?? []))>
+                    <label class="form-check-label" for="interest-{{ $interest }}">{{ $interest }}</label>
+                    @if($loop->last)
+                    @error('interests')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @endif
                 </div>
+                @endforeach                
             </div>
         </div>
         </div>

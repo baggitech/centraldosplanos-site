@@ -116,7 +116,8 @@ class UserController extends Controller
     {
         Gate::authorize('edit', $user);
         $input = $request->validate([
-            'roles' => 'required|array',
+            'roles' => ['required', 'array'],
+            'roles.*' => ['exists:roles,id'],
         ]);
 
         $user->roles()->sync($input['roles'] ?? []);
