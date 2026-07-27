@@ -16,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize('viewAny', User::class);
+
         $users = User::all();
         return view('users.index', compact('users'));
     }
@@ -26,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('create', User::class);
+
         return view('users.create');
     }
 
@@ -35,18 +37,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
+        Gate::authorize('create', User::class);
+
+        $input = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
+        User::create($input);
 
         return redirect()->route('users.index')->with('status', 'Usuário adicionado com sucesso.');
     }
@@ -65,9 +64,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
-        //Gate::authorize('edit', $user);
-        $user->load('profile', 'interests');
+        Gate::authorize('edit', $user);
+        $user->load('profile', 'interests', 'roles');
         $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
     }
@@ -82,13 +80,14 @@ class UserController extends Controller
         $input = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'exclude_if:password,null|required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
-        
+
         $user->fill($input);
-        if ($request->filled('password')) {
-            $user->password = bcrypt($input['password']);
+        if (! $request->filled('password')) {
+            unset($user->password);
         }
+
         $user->save();
 
         return redirect()->route('users.index')->with('status', 'Usuário editado com sucesso.');
@@ -101,10 +100,10 @@ class UserController extends Controller
         //
         Gate::authorize('edit', $user);
         $input = $request->validate([
-            'type' => 'required|string|max:255',
+            'type' => 'required|string|in:pf,pj',
             'address' => 'nullable|string|max:255',
         ]);
-        
+
         UserProfile::updateOrCreate(
             ['user_id' => $user->id], $input);
 
@@ -116,7 +115,7 @@ class UserController extends Controller
     {
         Gate::authorize('edit', $user);
         $input = $request->validate([
-            'roles' => ['required', 'array'],
+            'roles' => ['nullable', 'array'],
             'roles.*' => ['exists:roles,id'],
         ]);
 
@@ -131,6 +130,7 @@ class UserController extends Controller
         Gate::authorize('edit', $user);
         $input = $request->validate([
             'interests' => 'nullable|array',
+            'interests.*.name' => 'required|string|in:Futebol,Fórmula 1',
         ]);
 
         $user->interests()->delete(); // Remove existing interests

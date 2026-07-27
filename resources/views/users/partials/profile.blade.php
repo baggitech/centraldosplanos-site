@@ -7,8 +7,8 @@
             <label class="form-label">Tipo de usuário</label>
             <select name="type" class="form-select form-select-alt @error('type') is-invalid @enderror">
                 <option value="">Selecione o tipo de usuário</option>
-                <option value="admin" {{ old('type', $user?->profile?->type) == 'admin' ? 'selected' : '' }}>PF</option>
-                <option value="manager" {{ old('type', $user?->profile?->type) == 'manager' ? 'selected' : '' }}>PJ</option>
+                <option value="pf" {{ old('type', $user?->profile?->type) == 'pf' ? 'selected' : '' }}>PF</option>
+                <option value="pj" {{ old('type', $user?->profile?->type) == 'pj' ? 'selected' : '' }}>PJ</option>
             </select>
             @error('type')
             <div class="invalid-feedback">{{ $message }}</div>
