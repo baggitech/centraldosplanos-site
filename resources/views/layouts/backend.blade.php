@@ -27,7 +27,6 @@
   @yield('css')
   @vite([
     'resources/sass/main.scss',
-     'resources/sass/dashmix/themes/xInspire.scss',
      'resources/js/dashmix/app.js'
      ])
 
